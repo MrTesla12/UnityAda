@@ -9,8 +9,12 @@ public class PaddleController : MonoBehaviour
     public KeyCode upKey;
     public KeyCode downKey;
 
+    public bool disableWhenAI = false;
+
     void Update()
     {
+        if (disableWhenAI && GameSettings.isAI) return;
+
         float move = 0f;
 
         if (Input.GetKey(upKey))
@@ -21,8 +25,6 @@ public class PaddleController : MonoBehaviour
 
         Vector3 pos = transform.position;
         pos.y += move * speed * Time.deltaTime;
-
-        // Clamp
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
 
         transform.position = pos;
